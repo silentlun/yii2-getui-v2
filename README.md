@@ -23,7 +23,7 @@ to the require section of your `composer.json` file.
 
 
 ## 使用方法
------
+
 
 ### 1.配置组件  :
 
@@ -106,6 +106,6 @@ to the require section of your `composer.json` file.
 ```
 
 ## 其他接口
---------
+
 
 待完善。。。
