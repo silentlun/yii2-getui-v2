@@ -22,10 +22,10 @@ or add
 to the require section of your `composer.json` file.
 
 
-##使用方法
+## 使用方法
 -----
 
-###1.配置组件  :
+### 1.配置组件  :
 
 ```php
     'components' => [
@@ -40,7 +40,7 @@ to the require section of your `composer.json` file.
     ],
 ```
 
-###2.执行群推 pushToAll
+### 2.执行群推 pushToAll
 ```php 
     public function actionPush()
     {
@@ -60,7 +60,7 @@ to the require section of your `composer.json` file.
     
 ```
 
-###3.执行cid单推 pushToSingleByCid
+### 3.执行cid单推 pushToSingleByCid
 ```php 
     public function actionPush()
     {
@@ -80,7 +80,7 @@ to the require section of your `composer.json` file.
     
 ```
 
-###4.执行cid批量推 pushToListByCid
+### 4.执行cid批量推 pushToListByCid
 ```php
     public function actionPush()
     {
@@ -105,6 +105,7 @@ to the require section of your `composer.json` file.
     
 ```
 
-##其他接口
+## 其他接口
+--------
 
 待完善。。。
