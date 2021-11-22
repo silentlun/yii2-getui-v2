@@ -1,5 +1,7 @@
 基于个推RestAPI V2开发的Yii2扩展。
 ======================
+本插件适用于uniapp开发的APP。其他框架开发的APP，需要修改intent参数。
+
 因iOS不显示个推的通知消息，目前只有透传消息功能，如需个推通知消息功能可自行修改Push.php文件。
 
 Installation 安装

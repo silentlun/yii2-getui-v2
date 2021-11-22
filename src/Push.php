@@ -113,42 +113,31 @@ class Push extends Component
         $push = new GTPushRequest();
         $push->setRequestId(self::getMicroTime());
         $message = new GTPushMessage();
-        $message->setTransmission(json_encode($data));
+        
+        $message->setTransmission(json_encode($data, 320));
         $push->setPushMessage($message);
         //设置setting
         $set = new GTSettings();
         $set->setTtl(259200000);
         $strategy = new GTStrategy();
-        $strategy->setDefault(GTStrategy::STRATEGY_THIRD_FIRST);
+        $strategy->setDefault(GTStrategy::STRATEGY_GT_FIRST);
         $set->setStrategy($strategy);
         $push->setSettings($set);
+        
         //厂商推送消息参数
         $pushChannel = new GTPushChannel();
         //ios
         $ios = new GTIos();
         $ios->setType("notify");
         $ios->setAutoBadge("+1");
-        $ios->setPayload(json_encode($data['payload']));
-        //$ios->setApnsCollapseId("apnsCollapseId");//使用相同的apns-collapse-id可以覆盖之前的消息
+        $ios->setPayload(json_encode($data, 320));
         //aps设置
         $aps = new GTAps();
         $aps->setContentAvailable(0);
-        //$aps->setSound("com.gexin.ios.silenc");
-        //$aps->setCategory("category");
-        //$aps->setThreadId("threadId");
         
         $alert = new GTAlert();
         $alert->setTitle($data['title']);
         $alert->setBody($data['body']);
-        $alert->setActionLocKey("ActionLocKey");
-        $alert->setLocKey("LocKey");
-        $alert->setLocArgs(array("LocArgs1","LocArgs2"));
-        $alert->setLaunchImage("LaunchImage");
-        $alert->setTitleLocKey("TitleLocKey");
-        $alert->setTitleLocArgs(array("TitleLocArgs1","TitleLocArgs2"));
-        //$alert->setSubtitle("Subtitle");
-        //$alert->setSubtitleLocKey("SubtitleLocKey");
-        //$alert->setSubtitleLocArgs(array("subtitleLocArgs1","subtitleLocArgs2"));
         $aps->setAlert($alert);
         $ios->setAps($aps);
         
@@ -161,20 +150,13 @@ class Push extends Component
         $thirdNotification->setTitle($data['title']);
         $thirdNotification->setBody($data['body']);
         $thirdNotification->setClickType(GTThirdNotification::CLICK_TYPE_INTENT);
-        $thirdNotification->setIntent('intent:#Intent;action=android.intent.action.oppopush;launchFlags=0x14000000;component='.$this->appName.'/io.dcloud.PandoraEntry;S.UP-OL-SU=true;S.title='.$data['title'].';S.content='.$data['body'].';S.payload='.json_encode($data['payload']).';end');
-        //$thirdNotification->setPayload("payload");
-        //$thirdNotification->setNotifyId(456666);
-        //$ups->addOption("HW","badgeAddNum",1);
-        //$ups->addOption("OP","channel","Default");
-        //$ups->addOption("OP","aaa","bbb");
-        //$ups->addOption(null,"a","b");
+        $thirdNotification->setIntent('intent:#Intent;action=android.intent.action.oppopush;launchFlags=0x14000000;component='.$this->appName.'/io.dcloud.PandoraEntry;S.UP-OL-SU=true;S.title='.$data['title'].';S.content='.$data['body'].';S.payload='.json_encode($data['payload'], 320).';end');
         
         $ups->setNotification($thirdNotification);
         $android->setUps($ups);
         $pushChannel->setAndroid($android);
         $push->setPushChannel($pushChannel);
         
-        //print_r(json_encode($push->getApiParam()));exit;
         return $push;
     }
     
