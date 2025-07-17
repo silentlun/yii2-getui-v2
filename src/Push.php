@@ -120,7 +120,7 @@ class Push extends Component
         $set = new GTSettings();
         $set->setTtl(259200000);
         $strategy = new GTStrategy();
-        $strategy->setDefault(GTStrategy::STRATEGY_GT_FIRST);
+        $strategy->setDefault(GTStrategy::STRATEGY_THIRD_FIRST);
         $set->setStrategy($strategy);
         $push->setSettings($set);
         
@@ -130,7 +130,7 @@ class Push extends Component
         $ios = new GTIos();
         $ios->setType("notify");
         $ios->setAutoBadge("+1");
-        $ios->setPayload(json_encode($data, 320));
+        $ios->setPayload(json_encode($data['payload'], 320));
         //aps设置
         $aps = new GTAps();
         $aps->setContentAvailable(0);
@@ -150,7 +150,8 @@ class Push extends Component
         $thirdNotification->setTitle($data['title']);
         $thirdNotification->setBody($data['body']);
         $thirdNotification->setClickType(GTThirdNotification::CLICK_TYPE_INTENT);
-        $thirdNotification->setIntent('intent:#Intent;action=android.intent.action.oppopush;launchFlags=0x14000000;component='.$this->appName.'/io.dcloud.PandoraEntry;S.UP-OL-SU=true;S.title='.$data['title'].';S.content='.$data['body'].';S.payload='.json_encode($data['payload'], 320).';end');
+        //$thirdNotification->setIntent('intent:#Intent;action=android.intent.action.oppopush;launchFlags=0x14000000;component='.$this->appName.'/io.dcloud.PandoraEntry;S.UP-OL-SU=true;S.title='.$data['title'].';S.content='.$data['body'].';S.payload='.json_encode($data['payload'], 320).';end');
+        $thirdNotification->setIntent('intent://io.dcloud.unipush/?#Intent;scheme=unipush;launchFlags=0x4000000;component='.$this->appName.'/io.dcloud.PandoraEntry;S.UP-OL-SU=true;S.title='.$data['title'].';S.content='.$data['body'].';S.payload='.json_encode($data['payload'], 320).';end');
         
         $ups->setNotification($thirdNotification);
         $android->setUps($ups);
